@@ -57,7 +57,8 @@ class CategoriaForm(forms.ModelForm):
     
     def clean_nome(self):
         nome = self.cleaned_data['nome']
-        categoria = Categoria.objects.filter(nome=nome)
+        
+        categoria = Categoria.objects.filter(nome=nome).exclude(id=self.instance.id).exists()
         if categoria:
             raise forms.ValidationError('Esta categoria já existe')
         return nome
