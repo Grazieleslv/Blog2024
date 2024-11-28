@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models.functions import Lower
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DeleteView, ListView, UpdateView
@@ -106,7 +107,7 @@ class CategoriaListView(LoginRequiredMixin, ListView):
         search_term = self.request.GET.get('search')
         if search_term:
             qs = qs.filter(nome__icontains=search_term)
-        return qs.order_by('nome')
+        return qs.annotate(nome_lower=Lower('nome')).order_by('nome_lower')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
