@@ -1,5 +1,9 @@
 from django import forms
-from .models import Noticia
+
+from usuarios.models import UserBlog
+
+from .models import Categoria, Noticia
+
 
 class NoticiaForm(forms.ModelForm):
     
@@ -15,11 +19,6 @@ class NoticiaForm(forms.ModelForm):
 
         }
 
-
-
-from django import forms
-from .models import Categoria
-from usuarios.models import UserBlog  # Importe o modelo de usuário personalizado
 
 class NoticiaFilterForm(forms.Form):
     titulo = forms.CharField(
@@ -45,3 +44,11 @@ class NoticiaFilterForm(forms.Form):
         widget=forms.Select(attrs={'class': 'form-control'})
     )
   
+
+class CategoriaForm(forms.ModelForm):
+    class Meta:
+        model = Categoria
+        fields = ['nome']
+        widgets = {
+            'nome': forms.TextInput(attrs={'class': 'form-control'}),
+        }
