@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.core import paginator
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DeleteView, ListView, UpdateView
@@ -98,6 +99,7 @@ class CategoriaListView(ListView):
     model = Categoria
     template_name = 'gerencia/categoria_list.html'
     context_object_name = 'categorias'
+    paginate_by = 10
 
 class CategoriaCreateView(CreateView):
     model = Categoria
